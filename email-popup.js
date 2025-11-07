@@ -2,7 +2,7 @@
   if (window.__tipxEmailModalInjected) return;
   window.__tipxEmailModalInjected = true;
 
-  var DEFAULT_DELAY_MS = 25000;
+  var DEFAULT_DELAY_MS = 100;
   var cancelled = false;
   var showTimer = null;
 
@@ -14,44 +14,52 @@
       @keyframes tipxFadeIn { from { opacity: 0 } to { opacity: 1 } }\
       @keyframes tipxSlideUp { from { transform: translateY(12px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }\
       .tipx-overlay {\
-        position: fixed; inset: 0; background: rgba(0,0,0,0.6);\
+        position: fixed; inset: 0; background: rgba(0,0,0,0.65);\
         display: flex; align-items: center; justify-content: center;\
         z-index: 2147483646; animation: tipxFadeIn 200ms ease both;\
       }\
       .tipx-modal {\
         position: relative; width: min(90vw, 420px);\
-        background: rgba(255, 255, 255, 0.1);\
-        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);\
-        border: 0px solid rgba(255, 255, 255, 0.2);\
-        border-radius: 16px; padding: 24px;\
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\
+        background: #000002;\
+        border: none;\
+        border-radius: 24px; padding: 32px;\
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);\
         color: #ffffff;\
         font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji",sans-serif;\
+        font-weight: 500;\
         animation: tipxSlideUp 220ms ease both;\
       }\
       .tipx-close {\
-        position: absolute; top: 10px; right: 12px; width: 36px; height: 36px;\
+        position: absolute; top: 12px; right: 14px; width: 36px; height: 36px;\
         display: inline-flex; align-items: center; justify-content: center;\
         background: transparent; border: none; cursor: pointer;\
-        color: rgba(255,255,255,0.9); font-size: 22px; line-height: 1;\
+        color: rgba(255,255,255,0.7); font-size: 22px; line-height: 1;\
         border-radius: 8px; transition: background 120ms ease, transform 120ms ease, color 120ms ease;\
       }\
       .tipx-close:hover { background: rgba(255,255,255,0.08); color: #ffffff; transform: scale(1.04); }\
-      .tipx-title { font-size: 18px; font-weight: 700; margin: 0 32px 8px 0; color: #ffffff; }\
-      .tipx-desc { font-size: 14px; color: rgba(255,255,255,0.8); margin: 0 0 16px 0; }\
+      .tipx-title { font-size: 18px; font-weight: 500; margin: 0 32px 8px 0; color: #ffffff; }\
+      .tipx-desc { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75); margin: 0 0 20px 0; }\
       .tipx-input {\
-        width: 100%; padding: 12px 16px; font-size: 16px;\
-        background: rgba(255,255,255,0.1); color: #ffffff;\
-        border: none; outline: none; border-radius: 12px; box-sizing: border-box;\
+        width: 100%; padding: 14px 18px; font-size: 16px; font-weight: 500;\
+        background: rgba(255,255,255,0.08); color: #ffffff;\
+        border: 1px solid rgba(255,255,255,0.1); outline: none; border-radius: 12px; box-sizing: border-box;\
+        transition: background 120ms ease, border-color 120ms ease;\
       }\
-      .tipx-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; margin-top: 12px; }\
+      .tipx-input:focus { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.15); }\
+      .tipx-input::placeholder { color: rgba(255,255,255,0.4); }\
+      .tipx-row { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }\
       .tipx-button {\
-        padding: 12px 16px; font-size: 14px; font-weight: 700;\
-        background: #10b981; color: #0b0f0d; border: none; border-radius: 12px; cursor: pointer;\
+        width: 100%; padding: 14px 24px; font-size: 15px; font-weight: 500;\
+        background: #4f5fff; color: #ffffff; border: none; border-radius: 12px; cursor: pointer;\
         transition: filter 120ms ease, transform 120ms ease;\
       }\
-      .tipx-button:hover { filter: brightness(1.05); transform: translateY(-1px); }\
-      .tipx-error { grid-column: 1 / -1; min-height: 16px; font-size: 12px; color: #ef4444; }\
+      .tipx-button:hover { filter: brightness(1.1); transform: translateY(-1px); }\
+      .tipx-error { \
+        max-height: 0; overflow: hidden; opacity: 0;\
+        font-size: 14px; font-weight: 500; color: #ef4444; \
+        transition: max-height 300ms ease, opacity 250ms ease, margin 300ms ease;\
+      }\
+      .tipx-error.tipx-error-visible { max-height: 60px; opacity: 1; margin-bottom: 8px; }\
     ';
     document.head.appendChild(style);
   }
@@ -106,9 +114,9 @@
     error.className = 'tipx-error';
 
     row.appendChild(input);
+    row.appendChild(error);
     row.appendChild(button);
     form.appendChild(row);
-    form.appendChild(error);
 
     modal.appendChild(closeBtn);
     modal.appendChild(title);
@@ -133,20 +141,83 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var value = (input.value || '').trim();
-      var valid = /^\S+@\S+\.\S+$/.test(value);
-      if (!valid) {
+      
+      // Check for @ followed by a period
+      var hasAt = value.indexOf('@') > 0;
+      var atIndex = value.indexOf('@');
+      var hasPeriodAfterAt = atIndex > -1 && value.indexOf('.', atIndex) > atIndex;
+      
+      if (!hasAt || !hasPeriodAfterAt) {
         error.textContent = 'Please enter a valid email.';
+        error.className = 'tipx-error tipx-error-visible';
         input.focus();
         return;
       }
-      // TODO: send "value" to your endpoint/service
-      error.style.color = '#10b981';
-      error.textContent = 'Thanks! You’re subscribed.';
-      input.disabled = true; button.disabled = true;
-      setTimeout(close, 1000);
+      
+      // Disable inputs while sending
+      input.disabled = true;
+      button.disabled = true;
+      button.textContent = 'Sending...';
+      error.textContent = '';
+      error.className = 'tipx-error';
+      
+      // Send to API
+      fetch('https://tipx-stripe-discord-production.up.railway.app/api/email/collect', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'x-endpoints-key': 'a8a3fae5_86f_42d6_ba26_8e7746178e78'
+        },
+        body: JSON.stringify({ email: value })
+      })
+      .then(function(response) {
+        if (response.ok) {
+          error.style.color = '#10b981';
+          error.textContent = 'Thanks! You are now subscribed.';
+          error.className = 'tipx-error tipx-error-visible';
+          button.textContent = 'Subscribed';
+          setTimeout(close, 1500);
+        } else {
+          throw new Error('Subscription failed');
+        }
+      })
+      .catch(function(err) {
+        error.style.color = '#ef4444';
+        error.textContent = 'Something went wrong. Please try again.';
+        error.className = 'tipx-error tipx-error-visible';
+        input.disabled = false;
+        button.disabled = false;
+        button.textContent = 'Subscribe';
+      });
     });
 
     setTimeout(function () { try { input.focus(); } catch (_) {} }, 50);
+  }
+
+  function checkIPAndSchedule(delayMs) {
+    if (cancelled) return;
+    
+    // Check if IP already exists in database
+    fetch('https://tipx-stripe-discord-production.up.railway.app/api/email/ip-exists', {
+      method: 'GET',
+      headers: { 
+        'x-endpoints-key': 'a8a3fae5_86f_42d6_ba26_8e7746178e78'
+      }
+    })
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+      // If IP doesn't exist, schedule the popup
+      if (!data.exists) {
+        scheduleShow(delayMs);
+      }
+    })
+    .catch(function(err) {
+      // On error, show popup anyway (fail open)
+      console.warn('IP check failed, showing popup anyway:', err);
+      scheduleShow(delayMs);
+    });
   }
 
   function scheduleShow(delayMs) {
@@ -170,7 +241,7 @@
     },
     reschedule: function (ms) {
       cancelled = false;
-      scheduleShow(typeof ms === 'number' && ms >= 0 ? ms : DEFAULT_DELAY_MS);
+      checkIPAndSchedule(typeof ms === 'number' && ms >= 0 ? ms : DEFAULT_DELAY_MS);
     }
   };
 
@@ -180,5 +251,5 @@
   var delay = parseInt(attrDelay, 10);
   if (!isFinite(delay) || delay < 0) delay = DEFAULT_DELAY_MS;
 
-  scheduleShow(delay);
+  checkIPAndSchedule(delay);
 })();
