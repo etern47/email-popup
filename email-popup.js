@@ -11,56 +11,56 @@
     var style = document.createElement('style');
     style.id = 'tipx-email-modal-styles';
     style.textContent = '\
-      @keyframes tipxFadeIn { from { opacity: 0 } to { opacity: 1 } }\
-      @keyframes tipxSlideUp { from { transform: translateY(12px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }\
-      .tipx-overlay {\
-        position: fixed; inset: 0; background: rgba(0,0,0,0.65);\
-        display: flex; align-items: center; justify-content: center;\
-        z-index: 2147483646; animation: tipxFadeIn 200ms ease both;\
-      }\
-      .tipx-modal {\
-        position: relative; width: min(90vw, 420px);\
-        background: #000002;\
-        border: none;\
-        border-radius: 24px; padding: 32px;\
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);\
-        color: #ffffff;\
-        font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji",sans-serif;\
-        font-weight: 500;\
-        animation: tipxSlideUp 220ms ease both;\
-      }\
-      .tipx-close {\
-        position: absolute; top: 12px; right: 14px; width: 36px; height: 36px;\
-        display: inline-flex; align-items: center; justify-content: center;\
-        background: transparent; border: none; cursor: pointer;\
-        color: rgba(255,255,255,0.7); font-size: 22px; line-height: 1;\
-        border-radius: 8px; transition: background 120ms ease, transform 120ms ease, color 120ms ease;\
-      }\
-      .tipx-close:hover { background: rgba(255,255,255,0.08); color: #ffffff; transform: scale(1.04); }\
-      .tipx-title { font-size: 18px; font-weight: 500; margin: 0 32px 8px 0; color: #ffffff; }\
-      .tipx-desc { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75); margin: 0 0 20px 0; }\
-      .tipx-input {\
-        width: 100%; padding: 14px 18px; font-size: 16px; font-weight: 500;\
-        background: rgba(255,255,255,0.08); color: #ffffff;\
-        border: 1px solid rgba(255,255,255,0.1); outline: none; border-radius: 12px; box-sizing: border-box;\
-        transition: background 120ms ease, border-color 120ms ease;\
-      }\
-      .tipx-input:focus { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.15); }\
-      .tipx-input::placeholder { color: rgba(255,255,255,0.4); }\
-      .tipx-row { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }\
-      .tipx-button {\
-        width: 100%; padding: 14px 24px; font-size: 15px; font-weight: 500;\
-        background: #4f5fff; color: #ffffff; border: none; border-radius: 12px; cursor: pointer;\
-        transition: filter 120ms ease, transform 120ms ease;\
-      }\
-      .tipx-button:hover { filter: brightness(1.1); transform: translateY(-1px); }\
-      .tipx-error { \
-        max-height: 0; overflow: hidden; opacity: 0;\
-        font-size: 14px; font-weight: 500; color: #ef4444; \
-        transition: max-height 300ms ease, opacity 250ms ease, margin 300ms ease;\
-      }\
-      .tipx-error.tipx-error-visible { max-height: 60px; opacity: 1; margin-bottom: 8px; }\
-    ';
+        @keyframes tipxFadeIn { from { opacity: 0 } to { opacity: 1 } }\
+        @keyframes tipxSlideUp { from { transform: translateY(12px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }\
+        .tipx-overlay {\
+          position: fixed; inset: 0; background: rgba(0,0,0,0.65);\
+          display: flex; align-items: center; justify-content: center;\
+          z-index: 2147483646; animation: tipxFadeIn 200ms ease both;\
+        }\
+        .tipx-modal {\
+          position: relative; width: min(90vw, 420px);\
+          background: #000002;\
+          border: none;\
+          border-radius: 24px; padding: 32px;\
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);\
+          color: #ffffff;\
+          font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji",sans-serif;\
+          font-weight: 500;\
+          animation: tipxSlideUp 220ms ease both;\
+        }\
+        .tipx-close {\
+          position: absolute; top: 12px; right: 14px; width: 36px; height: 36px;\
+          display: inline-flex; align-items: center; justify-content: center;\
+          background: transparent; border: none; cursor: pointer;\
+          color: rgba(255,255,255,0.7); font-size: 22px; line-height: 1;\
+          border-radius: 8px; transition: background 120ms ease, transform 120ms ease, color 120ms ease;\
+        }\
+        .tipx-close:hover { background: rgba(255,255,255,0.08); color: #ffffff; transform: scale(1.04); }\
+        .tipx-title { font-size: 18px; font-weight: 500; margin: 0 32px 8px 0; color: #ffffff; }\
+        .tipx-desc { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75); margin: 0 0 20px 0; }\
+        .tipx-input {\
+          width: 100%; padding: 14px 18px; font-size: 16px; font-weight: 500;\
+          background: rgba(255,255,255,0.08); color: #ffffff;\
+          border: 1px solid rgba(255,255,255,0.1); outline: none; border-radius: 12px; box-sizing: border-box;\
+          transition: background 120ms ease, border-color 120ms ease;\
+        }\
+        .tipx-input:focus { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.15); }\
+        .tipx-input::placeholder { color: rgba(255,255,255,0.4); }\
+        .tipx-row { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }\
+        .tipx-button {\
+          width: 100%; padding: 14px 24px; font-size: 15px; font-weight: 500;\
+          background: #4f5fff; color: #ffffff; border: none; border-radius: 12px; cursor: pointer;\
+          transition: filter 120ms ease, transform 120ms ease;\
+        }\
+        .tipx-button:hover { filter: brightness(1.1); transform: translateY(-1px); }\
+        .tipx-error { \
+          max-height: 0; overflow: hidden; opacity: 0;\
+          font-size: 14px; font-weight: 500; color: #ef4444; \
+          transition: max-height 300ms ease, opacity 250ms ease, margin 300ms ease;\
+        }\
+        .tipx-error.tipx-error-visible { max-height: 60px; opacity: 1; margin-bottom: 8px; }\
+      ';
     document.head.appendChild(style);
   }
 
