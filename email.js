@@ -2,7 +2,7 @@
     if (window.__tipxEmailModalInjected) return;
     window.__tipxEmailModalInjected = true;
   
-    var DEFAULT_DELAY_MS = 100;
+    var DEFAULT_DELAY_MS = 25000;
     var cancelled = false;
     var showTimer = null;
   
