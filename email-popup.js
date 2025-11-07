@@ -50,7 +50,7 @@
         .tipx-row { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }\
         .tipx-button {\
           width: 100%; padding: 14px 24px; font-size: 15px; font-weight: 500;\
-          background: #4f5fff; color: #ffffff; border: none; border-radius: 12px; cursor: pointer;\
+          background: #2934FF; color: #ffffff; border: none; border-radius: 12px; cursor: pointer;\
           transition: filter 120ms ease, transform 120ms ease;\
         }\
         .tipx-button:hover { filter: brightness(1.1); transform: translateY(-1px); }\
