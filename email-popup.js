@@ -20,14 +20,49 @@
         }\
         .tipx-modal {\
           position: relative; width: min(90vw, 420px);\
-          background: #000002;\
+          background: radial-gradient(96% 96% at 48.8% -35.7%, rgb(138, 165, 255) 0%, rgb(0, 0, 0) 100%);\
           border: none;\
-          border-radius: 24px; padding: 32px;\
+          border-radius: 16px; padding: 2px;\
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);\
           color: #ffffff;\
           font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji",sans-serif;\
           font-weight: 500;\
           animation: tipxSlideUp 220ms ease both;\
+        }\
+        .tipx-modal-inner {\
+          background: radial-gradient(96% 96% at 50% 7.5%, rgb(18, 20, 38) 0%, rgb(0, 0, 0) 100%);\
+          border-radius: 16px;\
+          padding: 32px;\
+        }\
+        .tipx-icon-container {\
+          position: relative;\
+          width: 56px;\
+          height: 56px;\
+          background: rgb(0, 0, 0);\
+          border-radius: 8px;\
+          display: flex;\
+          align-items: center;\
+          justify-content: center;\
+          margin-bottom: 20px;\
+        }\
+        .tipx-icon-container svg {\
+          width: 32px;\
+          height: 32px;\
+          fill: rgb(138, 165, 255);\
+        }\
+        .tipx-icon-stroke-1 {\
+          position: absolute;\
+          inset: 0;\
+          background: linear-gradient(303deg, rgb(41, 52, 255) 0%, rgba(171, 171, 171, 0) 25%);\
+          border-radius: 8px;\
+          pointer-events: none;\
+        }\
+        .tipx-icon-stroke-2 {\
+          position: absolute;\
+          inset: 0;\
+          background: linear-gradient(140deg, rgb(41, 52, 255) -4%, rgba(0, 0, 0, 0) 25%);\
+          border-radius: 8px;\
+          pointer-events: none;\
         }\
         .tipx-close {\
           position: absolute; top: 12px; right: 14px; width: 36px; height: 36px;\
@@ -35,25 +70,27 @@
           background: transparent; border: none; cursor: pointer;\
           color: rgba(255,255,255,0.7); font-size: 22px; line-height: 1;\
           border-radius: 8px; transition: background 120ms ease, transform 120ms ease, color 120ms ease;\
+          z-index: 10;\
         }\
         .tipx-close:hover { background: rgba(255,255,255,0.08); color: #ffffff; transform: scale(1.04); }\
-        .tipx-title { font-size: 18px; font-weight: 500; margin: 0 32px 8px 0; color: #ffffff; }\
-        .tipx-desc { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75); margin: 0 0 20px 0; }\
+        .tipx-title { font-size: 24px; font-weight: 600; margin: 0 32px 12px 0; color: #ffffff; line-height: 28px; }\
+        .tipx-desc { font-size: 16px; font-weight: 400; color: rgba(255,255,255,0.7); margin: 0 0 20px 0; line-height: 1.6; }\
         .tipx-input {\
-          width: 100%; padding: 14px 18px; font-size: 16px; font-weight: 500;\
-          background: rgba(255,255,255,0.08); color: #ffffff;\
-          border: 1px solid rgba(255,255,255,0.1); outline: none; border-radius: 12px; box-sizing: border-box;\
+          width: 100%; padding: 14px 18px; font-size: 15px; font-weight: 400;\
+          background: rgba(255,255,255,0.06); color: #ffffff;\
+          border: 1px solid rgba(138, 165, 255, 0.15); outline: none; border-radius: 12px; box-sizing: border-box;\
           transition: background 120ms ease, border-color 120ms ease;\
         }\
-        .tipx-input:focus { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.15); }\
-        .tipx-input::placeholder { color: rgba(255,255,255,0.4); }\
+        .tipx-input:focus { background: rgba(255,255,255,0.08); border-color: rgba(138, 165, 255, 0.3); }\
+        .tipx-input::placeholder { color: rgba(255,255,255,0.35); }\
         .tipx-row { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }\
         .tipx-button {\
-          width: 100%; padding: 14px 24px; font-size: 15px; font-weight: 500;\
-          background: #2934FF; color: #ffffff; border: none; border-radius: 12px; cursor: pointer;\
-          transition: filter 120ms ease, transform 120ms ease;\
+          width: 100%; padding: 14px 24px; font-size: 15px; font-weight: 600;\
+          background: linear-gradient(135deg, rgb(41, 52, 255) 0%, rgb(79, 88, 255) 100%); color: #ffffff; border: none; border-radius: 12px; cursor: pointer;\
+          transition: filter 120ms ease, transform 120ms ease, box-shadow 120ms ease;\
+          box-shadow: 0 4px 12px rgba(41, 52, 255, 0.3);\
         }\
-        .tipx-button:hover { filter: brightness(1.1); transform: translateY(-1px); }\
+        .tipx-button:hover { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(41, 52, 255, 0.4); }\
         .tipx-error { \
           max-height: 0; overflow: hidden; opacity: 0;\
           font-size: 14px; font-weight: 500; color: #ef4444; \
@@ -77,10 +114,22 @@
     modal.setAttribute('aria-modal', 'true');
     modal.setAttribute('aria-labelledby', 'tipx-email-title');
 
+    var innerContainer = document.createElement('div');
+    innerContainer.className = 'tipx-modal-inner';
+
     var closeBtn = document.createElement('button');
     closeBtn.className = 'tipx-close';
     closeBtn.setAttribute('aria-label', 'Close');
     closeBtn.innerHTML = '×';
+
+    var iconContainer = document.createElement('div');
+    iconContainer.className = 'tipx-icon-container';
+    iconContainer.innerHTML = '\
+      <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24">\
+        <path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"></path>\
+      </svg>\
+      <div class="tipx-icon-stroke-1"></div>\
+      <div class="tipx-icon-stroke-2"></div>';
 
     var title = document.createElement('h2');
     title.className = 'tipx-title';
@@ -118,10 +167,13 @@
     row.appendChild(button);
     form.appendChild(row);
 
+    innerContainer.appendChild(iconContainer);
+    innerContainer.appendChild(title);
+    innerContainer.appendChild(desc);
+    innerContainer.appendChild(form);
+
     modal.appendChild(closeBtn);
-    modal.appendChild(title);
-    modal.appendChild(desc);
-    modal.appendChild(form);
+    modal.appendChild(innerContainer);
 
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
