@@ -32,22 +32,22 @@
           .tipx-modal-inner {\
             background: radial-gradient(96% 96% at 50% 7.5%, rgb(18, 20, 38) 0%, rgb(0, 0, 0) 100%);\
             border-radius: 16px;\
-            padding: 32px;\
+            padding: 24px;\
           }\
           .tipx-icon-container {\
             position: relative;\
-            width: 56px;\
-            height: 56px;\
+            width: 40px;\
+            height: 40px;\
             background: rgb(0, 0, 0);\
             border-radius: 8px;\
             display: flex;\
             align-items: center;\
             justify-content: center;\
-            margin-bottom: 20px;\
+            margin-bottom: 12px;\
           }\
           .tipx-icon-container svg {\
-            width: 32px;\
-            height: 32px;\
+            width: 24px;\
+            height: 24px;\
             fill: rgb(138, 165, 255);\
           }\
           .tipx-icon-stroke-1 {\
@@ -73,20 +73,20 @@
             z-index: 10;\
           }\
           .tipx-close:hover { background: rgba(255,255,255,0.08); color: #ffffff; transform: scale(1.04); }\
-          .tipx-title { font-size: 24px; font-weight: 600; margin: 0 32px 12px 0; color: #ffffff; line-height: 28px; }\
-          .tipx-desc { font-size: 16px; font-weight: 400; color: rgba(255,255,255,0.7); margin: 0 0 20px 0; line-height: 1.6; }\
+          .tipx-title { font-size: 20px; font-weight: 600; margin: 0 32px 6px 0; color: #ffffff; line-height: 24px; }\
+          .tipx-desc { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.7); margin: 0 0 12px 0; line-height: 1.4; }\
           .tipx-input {\
-            width: 100%; padding: 14px 18px; font-size: 15px; font-weight: 400;\
+            width: 100%; padding: 12px 16px; font-size: 15px; font-weight: 400;\
             background: rgba(255,255,255,0.06); color: #ffffff;\
-            border: 1px solid rgba(138, 165, 255, 0.15); outline: none; border-radius: 12px; box-sizing: border-box;\
+            border: 1px solid rgba(138, 165, 255, 0.15); outline: none; border-radius: 10px; box-sizing: border-box;\
             transition: background 120ms ease, border-color 120ms ease;\
           }\
-          .tipx-input:focus { background: rgba(255,255,255,0.08); border-color: rgba(138, 165, 255, 0.3); }\
+          .tipx-input:focus { background: rgba(255,255,255,0.06); border-color: rgba(138, 165, 255, 0.4); }\
           .tipx-input::placeholder { color: rgba(255,255,255,0.35); }\
-          .tipx-row { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }\
+          .tipx-row { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }\
           .tipx-button {\
-            width: 100%; padding: 14px 24px; font-size: 15px; font-weight: 600;\
-            background: linear-gradient(135deg, rgb(41, 52, 255) 0%, rgb(79, 88, 255) 100%); color: #ffffff; border: none; border-radius: 12px; cursor: pointer;\
+            width: 100%; padding: 12px 24px; font-size: 15px; font-weight: 600;\
+            background: linear-gradient(135deg, rgb(41, 52, 255) 0%, rgb(79, 88, 255) 100%); color: #ffffff; border: none; border-radius: 10px; cursor: pointer;\
             transition: filter 120ms ease, transform 120ms ease, box-shadow 120ms ease;\
             box-shadow: 0 4px 12px rgba(41, 52, 255, 0.3);\
           }\
@@ -97,6 +97,68 @@
             transition: max-height 300ms ease, opacity 250ms ease, margin 300ms ease;\
           }\
           .tipx-error.tipx-error-visible { max-height: 60px; opacity: 1; margin-bottom: 8px; }\
+          .tipx-form-hide { \
+            opacity: 0; transform: translateY(-8px);\
+            transition: opacity 300ms ease, transform 300ms ease;\
+            pointer-events: none;\
+          }\
+          .tipx-code-display { \
+            background: linear-gradient(135deg, rgba(41, 52, 255, 0.2) 0%, rgba(79, 88, 255, 0.15) 100%);\
+            border: 2px dashed rgba(138, 165, 255, 0.4);\
+            border-radius: 12px;\
+            padding: 0;\
+            text-align: center;\
+            margin-top: 0;\
+            opacity: 0;\
+            max-height: 0;\
+            overflow: hidden;\
+            transform: translateY(12px);\
+            transition: opacity 400ms ease 200ms, transform 400ms ease 200ms, max-height 400ms ease 200ms, margin-top 400ms ease 200ms, padding 400ms ease 200ms;\
+            cursor: pointer;\
+            user-select: none;\
+          }\
+          .tipx-code-display:hover { \
+            background: linear-gradient(135deg, rgba(41, 52, 255, 0.25) 0%, rgba(79, 88, 255, 0.2) 100%);\
+            border-color: rgba(138, 165, 255, 0.5);\
+          }\
+          .tipx-code-display.tipx-code-visible { \
+            opacity: 1;\
+            transform: translateY(0);\
+            max-height: 300px;\
+            margin-top: 12px;\
+            padding: 24px;\
+          }\
+          .tipx-code-label { \
+            font-size: 14px;\
+            color: rgba(255,255,255,0.6);\
+            margin: 0 0 8px 0;\
+            font-weight: 500;\
+          }\
+          .tipx-code-value { \
+            font-size: 32px;\
+            font-weight: 700;\
+            color: #ffffff;\
+            letter-spacing: 2px;\
+            margin: 0;\
+            font-family: "Courier New", monospace;\
+          }\
+          .tipx-code-copy-hint { \
+            font-size: 13px;\
+            color: rgba(255,255,255,0.5);\
+            margin: 12px 0 0 0;\
+            font-weight: 400;\
+          }\
+          .tipx-copied-message { \
+            font-size: 14px;\
+            color: #10b981;\
+            margin: 12px 0 0 0;\
+            font-weight: 500;\
+            opacity: 0;\
+            transition: opacity 200ms ease;\
+          }\
+          .tipx-copied-message.tipx-show { \
+            opacity: 1;\
+          }\
         ';
       document.head.appendChild(style);
     }
@@ -126,7 +188,7 @@
       iconContainer.className = 'tipx-icon-container';
       iconContainer.innerHTML = '\
         <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24">\
-          <path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"></path>\
+          <path d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7""></path>\
         </svg>\
         <div class="tipx-icon-stroke-1"></div>\
         <div class="tipx-icon-stroke-2"></div>';
@@ -134,11 +196,11 @@
       var title = document.createElement('h2');
       title.className = 'tipx-title';
       title.id = 'tipx-email-title';
-      title.textContent = 'Get updates via email';
+      title.textContent = '10% Off, Just Enter Your Email';
   
       var desc = document.createElement('p');
       desc.className = 'tipx-desc';
-      desc.textContent = 'Join our list to receive news, tips, and occasional offers.';
+      desc.textContent = 'Receive a coupon code for your first order when you join our newsletter, no spam ever!';
   
       var form = document.createElement('form');
       form.setAttribute('novalidate', 'true');
@@ -161,16 +223,54 @@
   
       var error = document.createElement('div');
       error.className = 'tipx-error';
-  
+
       row.appendChild(input);
       row.appendChild(error);
       row.appendChild(button);
       form.appendChild(row);
-  
+
+      var codeDisplay = document.createElement('div');
+      codeDisplay.className = 'tipx-code-display';
+      codeDisplay.innerHTML = '\
+        <p class="tipx-code-label">Your 10% Off Discount Code</p>\
+        <p class="tipx-code-value">TIPX10</p>\
+        <p class="tipx-code-copy-hint">Click to copy</p>\
+        <p class="tipx-copied-message">✓ Copied to clipboard!</p>';
+      
+      var copyHint = null;
+      var copiedMsg = null;
+      
+      function copyToClipboard() {
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText('TIPX10');
+          } else {
+            // Fallback for older browsers
+            var textArea = document.createElement('textarea');
+            textArea.value = 'TIPX10';
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+          }
+          
+          if (copyHint) copyHint.style.opacity = '0';
+          if (copiedMsg) copiedMsg.classList.add('tipx-show');
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      }
+      
+      codeDisplay.addEventListener('click', copyToClipboard);
+
       innerContainer.appendChild(iconContainer);
       innerContainer.appendChild(title);
       innerContainer.appendChild(desc);
       innerContainer.appendChild(form);
+      innerContainer.appendChild(codeDisplay);
   
       modal.appendChild(closeBtn);
       modal.appendChild(innerContainer);
@@ -224,11 +324,29 @@
         })
         .then(function(response) {
           if (response.ok) {
-            error.style.color = '#10b981';
-            error.textContent = 'Thanks! You are now subscribed.';
-            error.className = 'tipx-error tipx-error-visible';
-            button.textContent = 'Subscribed';
-            setTimeout(close, 1500);
+            // Update title and description
+            title.textContent = 'Thank you!';
+            desc.textContent = 'Here\'s your exclusive discount code:';
+            
+            // Hide form with animation
+            form.classList.add('tipx-form-hide');
+            
+            // Show code display after form animates out
+            setTimeout(function() {
+              form.style.display = 'none';
+              codeDisplay.classList.add('tipx-code-visible');
+              
+              // Get references to hint and message elements
+              copyHint = codeDisplay.querySelector('.tipx-code-copy-hint');
+              copiedMsg = codeDisplay.querySelector('.tipx-copied-message');
+              
+              // Automatically copy to clipboard after showing the code
+              setTimeout(function() {
+                copyToClipboard();
+              }, 900);
+            }, 300);
+            
+            // Don't auto-close - let user close manually
           } else {
             throw new Error('Subscription failed');
           }
